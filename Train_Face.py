@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 from PIL import Image
 import os
+
 def Train():
     path = 'Datasets'
-
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -21,13 +21,8 @@ def Train():
                 faceSamples.append(img_numpy[y:y + h, x:x + w])
                 ids.append(id)
         return faceSamples, ids
-
     print("\nTraining faces. Please Wait")
     face, ids = getImages(path)
     recognizer.train(face, np.array(ids))
-
     recognizer.write('Trained/trainer.yml')
-
-    print("\n {0} faces trained. Exiting Program".format(len(np.unique(ids))))
-
-
+    print("\n{0} faces trained. Exiting Program".format(len(np.unique(ids))))
